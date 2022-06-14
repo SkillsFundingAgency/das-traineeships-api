@@ -15,7 +15,6 @@ namespace SFA.DAS.FAT.Application.Vacancies.Queries.SearchTraineeshipVacancies
         public bool? NationWideOnly { get ; set ; }
         public uint? DistanceInMiles { get ; set ; }
         public uint? PostedInLastNumberOfDays { get ; set ; }
-        public List<string> Categories { get ; set ; }
         public double? Lat { get ; set ; }
         public double? Lon { get ; set ; }
         public VacancySort VacancySort { get ; set ; }

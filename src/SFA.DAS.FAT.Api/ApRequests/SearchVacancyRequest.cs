@@ -27,8 +27,6 @@ namespace SFA.DAS.FAT.Api.ApRequests
         [FromQuery]
         public uint? DistanceInMiles  { get; set; } = null;
         [FromQuery]
-        public List<string> Categories  { get; set; } = null;
-        [FromQuery]
         public uint? PostedInLastNumberOfDays  { get; set; } = null;
         [FromQuery]
         public VacancySort? Sort  { get; set; } = VacancySort.AgeDesc;

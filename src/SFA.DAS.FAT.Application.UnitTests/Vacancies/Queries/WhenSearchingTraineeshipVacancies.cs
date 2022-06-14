@@ -29,7 +29,6 @@ namespace SFA.DAS.FAT.Application.UnitTests.Vacancies.Queries
                         c.AccountPublicHashedId.Equals(query.AccountPublicHashedId) &&
                         c.AccountLegalEntityPublicHashedId.Equals(query.AccountLegalEntityPublicHashedId) &&
                         c.RouteIds.Equals(query.RouteIds) &&
-                        c.Categories.Equals(query.Categories) &&
                         c.Lat.Equals(query.Lat) &&
                         c.Lon.Equals(query.Lon) &&
                         c.DistanceInMiles.Equals(query.DistanceInMiles) &&

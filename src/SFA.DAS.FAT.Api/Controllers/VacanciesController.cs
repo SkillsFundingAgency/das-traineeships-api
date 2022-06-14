@@ -51,7 +51,6 @@ namespace SFA.DAS.FAT.Api.Controllers
                 Ukprn = request.Ukprn,
                 AccountPublicHashedId = request.AccountPublicHashedId,
                 AccountLegalEntityPublicHashedId = request.AccountLegalEntityPublicHashedId,
-                Categories = request.Categories,
                 Lat = request.Lat,
                 Lon = request.Lon,
                 DistanceInMiles = request.DistanceInMiles,

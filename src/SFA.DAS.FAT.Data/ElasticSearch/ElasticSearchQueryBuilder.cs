@@ -106,10 +106,7 @@ namespace SFA.DAS.FAT.Data.ElasticSearch
             {
                 filters += @$"{AddFilterSeparator(filters)}{{ ""range"": {{ ""postedDate"": {{ ""gte"": ""now-{findVacanciesModel.PostedInLastNumberOfDays}d/d"", ""lt"": ""now/d"" }} }} }}";
             }
-            if (findVacanciesModel.Categories != null && findVacanciesModel.Categories.Any())
-            {
-                filters += @$"{AddFilterSeparator(filters)}{{ ""terms"": {{ ""category"": [""{string.Join(@""",""",findVacanciesModel.Categories)}""] }} }}";
-            }
+
             if (findVacanciesModel.RouteIds != null && findVacanciesModel.RouteIds.Any())
             {
                 filters += @$"{AddFilterSeparator(filters)}{{ ""terms"": {{ ""routeId"": [""{string.Join(@""",""", findVacanciesModel.RouteIds)}""] }} }}";

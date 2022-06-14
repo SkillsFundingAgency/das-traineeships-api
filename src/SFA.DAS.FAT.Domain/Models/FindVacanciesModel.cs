@@ -10,7 +10,6 @@ namespace SFA.DAS.FAT.Domain.Models
         public string AccountPublicHashedId { get; set; }
         public string AccountLegalEntityPublicHashedId { get; set; }
         public List<int> RouteIds { get; set; }
-        public List<string> Categories { get; set; }
         public double? Lat { get; set; }
         public double? Lon { get; set; }
         public uint? DistanceInMiles { get; set; }
