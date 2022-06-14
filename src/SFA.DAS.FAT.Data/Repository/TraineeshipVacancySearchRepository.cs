@@ -20,12 +20,12 @@ namespace SFA.DAS.FAT.Data.Repository
         private readonly IElasticSearchQueryBuilder _queryBuilder;
         private readonly ILogger<TraineeshipVacancySearchRepository> _logger;
         private const string IndexName = "-faa-traineeships";
-        
+
 
         public TraineeshipVacancySearchRepository(
-            IElasticLowLevelClient client, 
-            ElasticEnvironment environment, 
-            IElasticSearchQueryBuilder queryBuilder, 
+            IElasticLowLevelClient client,
+            ElasticEnvironment environment,
+            IElasticSearchQueryBuilder queryBuilder,
             ILogger<TraineeshipVacancySearchRepository> logger)
         {
             _client = client;
@@ -36,12 +36,12 @@ namespace SFA.DAS.FAT.Data.Repository
 
         private string TraineeshipVacanciesIndex => _environment.Prefix + IndexName;
 
-        public async Task<bool> PingAsync()
+        public async Task<bool> Ping()
         {
             var pingResponse = await _client.CountAsync<StringResponse>(
-                TraineeshipVacanciesIndex, 
-                PostData.String(""), 
-                new CountRequestParameters(), 
+                TraineeshipVacanciesIndex,
+                PostData.String(""),
+                new CountRequestParameters(),
                 CancellationToken.None);
 
             if (!pingResponse.Success)
@@ -55,11 +55,11 @@ namespace SFA.DAS.FAT.Data.Repository
         public async Task<TraineeshipVacancyItem> Get(string vacancyReference)
         {
             _logger.LogInformation($"Starting get vacancy [{vacancyReference}]");
-            
+
             var query = _queryBuilder.BuildGetVacancyQuery(vacancyReference);
             var jsonResponse = await _client.SearchAsync<StringResponse>(TraineeshipVacanciesIndex, PostData.String(query));
             var responseBody = JsonConvert.DeserializeObject<ElasticResponse<TraineeshipVacancyItem>>(jsonResponse.Body);
-            
+
             _logger.LogInformation($"Found [{responseBody.hits.total.value}] hits for vacancy [{vacancyReference}]");
 
             var traineeshipVacancyItem = responseBody.Items.SingleOrDefault()?._source;
@@ -69,7 +69,7 @@ namespace SFA.DAS.FAT.Data.Repository
         public async Task<TraineeshipSearchResponse> Find(FindVacanciesModel findVacanciesModel)
         {
             _logger.LogInformation("Starting vacancy search");
-            
+
             var query = _queryBuilder.BuildFindVacanciesQuery(findVacanciesModel);
             var jsonResponse = await _client.SearchAsync<StringResponse>(TraineeshipVacanciesIndex, PostData.String(query));
             var responseBody = JsonConvert.DeserializeObject<ElasticResponse<TraineeshipSearchItem>>(jsonResponse.Body);
@@ -90,28 +90,28 @@ namespace SFA.DAS.FAT.Data.Repository
 
             var isDistanceSort = findVacanciesModel.VacancySort == VacancySort.DistanceAsc ||
                                  findVacanciesModel.VacancySort == VacancySort.DistanceDesc;
-            
-            if (findVacanciesModel.Lat == null || findVacanciesModel.Lon == null 
+
+            if (findVacanciesModel.Lat == null || findVacanciesModel.Lon == null
                                                || findVacanciesModel.DistanceInMiles == null || !isDistanceSort)
             {
-                searchItems = traineeshipSearchItems.Select(c=>c._source).ToList();
+                searchItems = traineeshipSearchItems.Select(c => c._source).ToList();
             }
             else
             {
                 foreach (var traineeshipSearchItem in traineeshipSearchItems)
                 {
                     var searchItem = traineeshipSearchItem._source;
-                    searchItem.Distance = traineeshipSearchItem.sort?.FirstOrDefault();  
+                    searchItem.Distance = traineeshipSearchItem.sort?.FirstOrDefault();
                     searchItems.Add(searchItem);
-                }    
+                }
             }
-            
-            
-            var searchResult =  new TraineeshipSearchResponse
+
+
+            var searchResult = new TraineeshipSearchResponse
             {
                 TraineeshipVacancies = searchItems,
-               TotalFound = responseBody.hits?.total?.value ?? 0,
-               Total = totalRecordCount
+                TotalFound = responseBody.hits?.total?.value ?? 0,
+                Total = totalRecordCount
             };
 
             return searchResult;

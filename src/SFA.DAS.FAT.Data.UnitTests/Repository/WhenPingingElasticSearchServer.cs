@@ -43,7 +43,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
                 .ReturnsAsync(new StringResponse {ApiCall = apiCallMock.Object});
 
             //Act
-            var result = await _repository.PingAsync();
+            var result = await _repository.Ping();
 
             //Assert
             Assert.IsTrue(result);
@@ -63,7 +63,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
                 .ReturnsAsync(new StringResponse {ApiCall = apiCallMock.Object});
 
             //Act
-            var result = await _repository.PingAsync();
+            var result = await _repository.Ping();
 
             //Assert
             Assert.IsFalse(result);

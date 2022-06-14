@@ -11,7 +11,7 @@ namespace SFA.DAS.FAT.Application.Vacancies.Queries.SearchTraineeshipVacancies
         public int? Ukprn { get; set; }
         public string AccountPublicHashedId { get; set; }
         public string AccountLegalEntityPublicHashedId { get ; set ; }
-        public List<int> RouteId { get ; set ; }
+        public List<int> RouteIds { get ; set ; }
         public bool? NationWideOnly { get ; set ; }
         public uint? DistanceInMiles { get ; set ; }
         public uint? PostedInLastNumberOfDays { get ; set ; }

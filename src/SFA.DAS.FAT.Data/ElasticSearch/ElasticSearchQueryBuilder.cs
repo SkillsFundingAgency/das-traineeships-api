@@ -110,9 +110,9 @@ namespace SFA.DAS.FAT.Data.ElasticSearch
             {
                 filters += @$"{AddFilterSeparator(filters)}{{ ""terms"": {{ ""category"": [""{string.Join(@""",""",findVacanciesModel.Categories)}""] }} }}";
             }
-            if (findVacanciesModel.RouteId != null && findVacanciesModel.RouteId.Any())
+            if (findVacanciesModel.RouteIds != null && findVacanciesModel.RouteIds.Any())
             {
-                filters += @$"{AddFilterSeparator(filters)}{{ ""terms"": {{ ""routeId"": [""{string.Join(@""",""", findVacanciesModel.RouteId)}""] }} }}";
+                filters += @$"{AddFilterSeparator(filters)}{{ ""terms"": {{ ""routeId"": [""{string.Join(@""",""", findVacanciesModel.RouteIds)}""] }} }}";
             }
             return filters;
         }

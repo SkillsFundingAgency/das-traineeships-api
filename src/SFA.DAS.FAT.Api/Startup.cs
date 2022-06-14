@@ -68,7 +68,6 @@ namespace SFA.DAS.FAT.Api
             services.AddSingleton(cfg => cfg.GetService<IOptions<AzureActiveDirectoryConfiguration>>().Value);
 
 #if DEBUG
-            //services.AddSingleton(new ElasticEnvironment("TEST"));
             services.AddSingleton(new ElasticEnvironment("pp"));
 #else
             services.AddSingleton(new ElasticEnvironment(_configuration["ResourceEnvironmentName"]));

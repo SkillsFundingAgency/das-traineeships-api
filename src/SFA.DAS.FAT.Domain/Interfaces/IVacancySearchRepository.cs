@@ -6,7 +6,7 @@ namespace SFA.DAS.FAT.Domain.Interfaces
 {
     public interface IVacancySearchRepository
     {
-        Task<bool> PingAsync();
+        Task<bool> Ping();
         Task<TraineeshipVacancyItem> Get(string vacancyReference);
         Task<TraineeshipSearchResponse> Find(FindVacanciesModel findVacanciesModel);
     }

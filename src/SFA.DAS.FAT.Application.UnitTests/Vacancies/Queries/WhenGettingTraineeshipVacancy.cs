@@ -14,7 +14,7 @@ namespace SFA.DAS.FAT.Application.UnitTests.Vacancies.Queries
     public class WhenGettingTraineeshipVacancy
     {
         [Test, MoqAutoData]
-        public async Task Then_Gets_Vacancies_From_Repository(
+        public async Task Then_Gets_Vacancy_From_Repository(
             GetTraineeshipVacancyQuery query,
             TraineeshipVacancyItem responseFromRepository,
             [Frozen] Mock<IVacancySearchRepository> mockVacancyIndexRepository,

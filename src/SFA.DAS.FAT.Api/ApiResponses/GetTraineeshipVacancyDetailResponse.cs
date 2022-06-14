@@ -56,8 +56,8 @@ namespace SFA.DAS.FAT.Api.ApiResponses
                 EmployerWebsiteUrl = source.EmployerWebsiteUrl,
                 EmployerDescription = source.EmployerDescription,
                 Address = source.Address,
-                routeId = source.routeId,
-                routeName = source.routeName
+                RouteId = source.RouteId,
+                RouteName = source.RouteName
             };
         }
     }

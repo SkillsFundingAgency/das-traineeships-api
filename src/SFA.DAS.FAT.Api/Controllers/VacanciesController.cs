@@ -56,7 +56,7 @@ namespace SFA.DAS.FAT.Api.Controllers
                 Lon = request.Lon,
                 DistanceInMiles = request.DistanceInMiles,
                 NationWideOnly = request.NationWideOnly,
-                RouteId = request.RouteId,
+                RouteIds = request.RouteIds,
                 PostedInLastNumberOfDays = request.PostedInLastNumberOfDays,
                 VacancySort = request.Sort ?? VacancySort.AgeDesc
             });

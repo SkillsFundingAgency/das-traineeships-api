@@ -35,8 +35,8 @@ namespace SFA.DAS.FAT.Api.ApiResponses
         public string EmployerContactPhone { get; set; }
         public string EmployerContactEmail { get; set; }
         public string EmployerContactName { get; set; }
-        public int? routeId { get; set; }
-        public string routeName { get; set; }
+        public int? RouteId { get; set; }
+        public string RouteName { get; set; }
         public string Category { get; set; }
         public string CategoryCode { get; set; }
         public DateTime StartDate { get; set; }
@@ -76,10 +76,10 @@ namespace SFA.DAS.FAT.Api.ApiResponses
                 EmployerContactPhone = source.EmployerContactPhone,
                 EmployerWebsiteUrl = source.EmployerWebsiteUrl,
                 Address = source.Address,
-                routeId= source.routeId,
-                routeName=source.routeName
+                RouteId = source.RouteId,
+                RouteName = source.RouteName
 
-    };
+            };
         }
     }
 

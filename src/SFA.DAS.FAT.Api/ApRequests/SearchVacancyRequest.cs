@@ -17,7 +17,7 @@ namespace SFA.DAS.FAT.Api.ApRequests
         [FromQuery]
         public string AccountLegalEntityPublicHashedId  { get; set; } = null;
         [FromQuery]
-        public List<int> RouteId { get; set; } = null;
+        public List<int> RouteIds { get; set; } = null;
         [FromQuery]
         public bool? NationWideOnly  { get; set; } = null;
         [FromQuery]

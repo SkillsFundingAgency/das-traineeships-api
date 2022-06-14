@@ -24,7 +24,7 @@ namespace SFA.DAS.FAT.Application.Vacancies.Queries.SearchTraineeshipVacancies
                 Ukprn = request.Ukprn, 
                 AccountPublicHashedId = request.AccountPublicHashedId, 
                 AccountLegalEntityPublicHashedId =request.AccountLegalEntityPublicHashedId,
-                RouteId = request.RouteId,
+                RouteIds = request.RouteIds,
                 Categories = request.Categories,
                 Lat = request.Lat,
                 Lon =request.Lon,
