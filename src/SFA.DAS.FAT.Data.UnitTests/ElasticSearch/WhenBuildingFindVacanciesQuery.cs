@@ -297,25 +297,6 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
         }
 
         [Test, MoqAutoData]
-        public void Then_If_There_Is_A_PostedInLastNumberOfDays_And_Location_And_Catagories_And_Standard_Lars_Codes_Value_Then_Added_To_Query(
-            FindVacanciesModel model,
-            [Frozen] Mock<IElasticSearchQueries> mockQueries,
-            ElasticSearchQueryBuilder queryBuilder)
-        {
-            //Arrange
-            mockQueries
-                .Setup(queries => queries.FindVacanciesQuery)
-                .Returns(@"{filters}");
-
-            //Act
-
-            var query = queryBuilder.BuildFindVacanciesQuery(model);
-
-            //Assert
-            query.Should().Be(@$"{{ ""geo_distance"": {{ ""distance"": ""{model.DistanceInMiles}miles"", ""location"": {{ ""lat"": {model.Lat}, ""lon"": {model.Lon} }} }} }}, {{ ""range"": {{ ""postedDate"": {{ ""gte"": ""now-{model.PostedInLastNumberOfDays}d/d"", ""lt"": ""now/d"" }} }} }}, {{ ""terms"": {{ ""category"": [""{string.Join(@""",""", model.Categories)}""] }} }}, {{ ""terms"": {{ ""routeId"": [""{string.Join(@""",""", model.RouteIds)}""] }} }}");
-        }
-
-        [Test, MoqAutoData]
         public void Then_If_There_Is_No_Value_For_PostedInLastNumberOfDays_And_Location_Value_Then_Not_Added_To_Filter_Query(
             FindVacanciesModel model,
             [Frozen] Mock<IElasticSearchQueries> mockQueries,
