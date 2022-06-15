@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using SFA.DAS.FAT.Domain.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FAT.Application.Vacancies.Queries.GetTraineeshipVacancy
 {
@@ -13,7 +13,7 @@ namespace SFA.DAS.FAT.Application.Vacancies.Queries.GetTraineeshipVacancy
         {
             _vacancySearchRepository = vacancySearchRepository;
         }
-        
+
         public async Task<GetTraineeshipVacancyResult> Handle(GetTraineeshipVacancyQuery request, CancellationToken cancellationToken)
         {
             var vacancy = await _vacancySearchRepository.Get(request.VacancyReference);

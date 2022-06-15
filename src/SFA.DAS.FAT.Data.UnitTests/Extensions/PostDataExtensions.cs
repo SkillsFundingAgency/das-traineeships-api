@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using Elasticsearch.Net;
+using System.IO;
 using System.Text;
-using Elasticsearch.Net;
 
 namespace SFA.DAS.FAT.Data.UnitTests.Extensions
 {

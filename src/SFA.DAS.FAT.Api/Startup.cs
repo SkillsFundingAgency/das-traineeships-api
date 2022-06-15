@@ -1,13 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +16,10 @@ using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.FAT.Api.AppStart;
 using SFA.DAS.FAT.Application.Vacancies.Queries.SearchTraineeshipVacancies;
 using SFA.DAS.FAT.Domain.Configuration;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json.Serialization;
 
 namespace SFA.DAS.FAT.Api
 {
@@ -36,7 +33,7 @@ namespace SFA.DAS.FAT.Api
                 .AddConfiguration(configuration)
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddEnvironmentVariables();
-            
+
             if (!configuration["Environment"].Equals("DEV", StringComparison.CurrentCultureIgnoreCase))
             {
 
@@ -58,7 +55,7 @@ namespace SFA.DAS.FAT.Api
 
             _configuration = config.Build();
         }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
@@ -76,9 +73,9 @@ namespace SFA.DAS.FAT.Api
             var apiConfig = _configuration
                 .GetSection("FindTraineeshipsApi")
                 .Get<FindTraineeshipsApiConfiguration>();
-            
+
             services.AddElasticSearch(apiConfig);
-            
+
             if (!ConfigurationIsLocalOrDev())
             {
                 var azureAdConfiguration = _configuration
@@ -97,10 +94,10 @@ namespace SFA.DAS.FAT.Api
             {
                 services.AddHealthChecks();
             }
-            
+
             services.AddMediatR(typeof(SearchTraineeshipVacanciesQuery).Assembly);
             services.AddServiceRegistration();
-            
+
             services
                 .AddMvc(o =>
                 {
@@ -122,14 +119,15 @@ namespace SFA.DAS.FAT.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FindTraineeshipsApi", Version = "v1" });
                 c.OperationFilter<SwaggerVersionHeaderFilter>();
             });
-            
-            services.AddApiVersioning(opt => {
+
+            services.AddApiVersioning(opt =>
+            {
                 opt.ApiVersionReader = new HeaderApiVersionReader("X-Version");
             });
 
             services.AddLogging();
         }
-        
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             app.UseSwagger();
@@ -138,7 +136,7 @@ namespace SFA.DAS.FAT.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "FindTraineeshipsApi v1");
                 c.RoutePrefix = string.Empty;
             });
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -162,7 +160,7 @@ namespace SFA.DAS.FAT.Api
                     pattern: "api/{controller=Vacancies}/{action=Get}/{id?}");
             });
         }
-        
+
         private bool ConfigurationIsLocalOrDev()
         {
             return _configuration["Environment"].Equals("LOCAL", StringComparison.CurrentCultureIgnoreCase) ||

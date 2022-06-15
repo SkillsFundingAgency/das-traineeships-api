@@ -20,7 +20,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
             mockQueries
                 .Setup(queries => queries.GetVacancyQuery)
                 .Returns(@"{""query"": { ""term"": { ""vacancyReference"": ""{vacancyReference}""}}}");
-            
+
             //act
             var query = queryBuilder.BuildGetVacancyQuery(vacancyReference);
 

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using AutoFixture.NUnit3;
+﻿using AutoFixture.NUnit3;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -7,6 +6,7 @@ using SFA.DAS.FAT.Data.ElasticSearch;
 using SFA.DAS.FAT.Domain.Interfaces;
 using SFA.DAS.FAT.Domain.Models;
 using SFA.DAS.Testing.AutoFixture;
+using System.Collections.Generic;
 
 namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
 {
@@ -14,8 +14,8 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
     {
         [Test, MoqAutoData]
         public void Then_Calculates_StartDocumentIndex_And_Adds_To_Query(
-            int pageNumber, 
-            int pageSize, 
+            int pageNumber,
+            int pageSize,
             [Frozen] Mock<IElasticSearchQueries> mockQueries,
             ElasticSearchQueryBuilder queryBuilder)
         {
@@ -29,7 +29,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
                 .Setup(queries => queries.FindVacanciesQuery)
                 .Returns(@"{""from"": ""{startingDocumentIndex}""}");
             var expectedStartingDocumentIndex = pageNumber < 2 ? 0 : (pageNumber - 1) * pageSize;
-            
+
             //act
             var query = queryBuilder.BuildFindVacanciesQuery(model);
 
@@ -39,8 +39,8 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
 
         [Test, MoqAutoData]
         public void Then_Adds_PageSize_To_Query(
-            int pageNumber, 
-            int pageSize, 
+            int pageNumber,
+            int pageSize,
             [Frozen] Mock<IElasticSearchQueries> mockQueries,
             ElasticSearchQueryBuilder queryBuilder)
         {
@@ -53,20 +53,20 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
             mockQueries
                 .Setup(queries => queries.FindVacanciesQuery)
                 .Returns(@"{""size"": ""{pageSize}""}");
-            
+
             //act
             var query = queryBuilder.BuildFindVacanciesQuery(model);
 
             //ass
             query.Should().Contain(@$"""size"": ""{pageSize}""");
         }
-        
+
         [Test]
-        [MoqInlineAutoData(50000112, null, null, null,null, @"{""must"": [ { ""term"": { ""ukprn"": ""50000112"" }} ]")]
-        [MoqInlineAutoData(null, "ACB123", null, null, null,@"{""must"": [ { ""term"": { ""accountPublicHashedId"": ""ACB123"" }} ]")]
-        [MoqInlineAutoData(null, null, "XYZ456", null,  null,@"{""must"": [ { ""term"": { ""accountLegalEntityPublicHashedId"": ""XYZ456"" }} ]")]
-        [MoqInlineAutoData(null, null, null,null, true, @"{""must"": [ { ""term"": { ""vacancyLocationType"": ""National"" }} ]")]
-        [MoqInlineAutoData(null, null, null,null, false, @"{""must"": [ { ""term"": { ""vacancyLocationType"": ""NonNational"" }} ]")]
+        [MoqInlineAutoData(50000112, null, null, null, null, @"{""must"": [ { ""term"": { ""ukprn"": ""50000112"" }} ]")]
+        [MoqInlineAutoData(null, "ACB123", null, null, null, @"{""must"": [ { ""term"": { ""accountPublicHashedId"": ""ACB123"" }} ]")]
+        [MoqInlineAutoData(null, null, "XYZ456", null, null, @"{""must"": [ { ""term"": { ""accountLegalEntityPublicHashedId"": ""XYZ456"" }} ]")]
+        [MoqInlineAutoData(null, null, null, null, true, @"{""must"": [ { ""term"": { ""vacancyLocationType"": ""National"" }} ]")]
+        [MoqInlineAutoData(null, null, null, null, false, @"{""must"": [ { ""term"": { ""vacancyLocationType"": ""NonNational"" }} ]")]
         public void And_Single_Field_HasValue_Then_Adds_Must_Condition(
             int? ukprn,
             string accountPublicHashedId,
@@ -74,7 +74,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
             List<int> routeId,
             bool? national,
             string fieldAssertion,
-            int pageNumber, 
+            int pageNumber,
             int pageSize,
             [Frozen] Mock<IElasticSearchQueries> mockQueries,
             ElasticSearchQueryBuilder queryBuilder)
@@ -93,18 +93,18 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
             mockQueries
                 .Setup(queries => queries.FindVacanciesQuery)
                 .Returns(@"{""must"": [ {mustConditions} ] }");
-            
+
             //act
             var query = queryBuilder.BuildFindVacanciesQuery(model);
 
             //ass
             query.Should().Contain(fieldAssertion);
         }
-        
+
         [Test, MoqAutoData]
         public void And_Ukprn_And_AccountId_And_AccountLegalEntity_HasValue_Then_Adds_Must_Condition(
-            int pageNumber, 
-            int pageSize, 
+            int pageNumber,
+            int pageSize,
             int ukprn,
             string accountPublicHashedId,
             string accountLegalEntityPublicHashedId,
@@ -123,7 +123,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
             mockQueries
                 .Setup(queries => queries.FindVacanciesQuery)
                 .Returns(@"{""must"": [ {mustConditions} ] }");
-            
+
             //act
             var query = queryBuilder.BuildFindVacanciesQuery(model);
 
@@ -153,7 +153,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
             mockQueries
                 .Setup(queries => queries.FindVacanciesQuery)
                 .Returns(@"{""sort"": [ {sort} ] }");
-            
+
             //Act
             var query = queryBuilder.BuildFindVacanciesQuery(model);
 
@@ -170,7 +170,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
             mockQueries
                 .Setup(queries => queries.FindVacanciesQuery)
                 .Returns(@"{filters}");
-            
+
             //Act
             var query = queryBuilder.BuildFindVacanciesQuery(model);
 
@@ -200,10 +200,10 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
             mockQueries
                 .Setup(queries => queries.FindVacanciesQuery)
                 .Returns(@"{""sort"": [ {sort} ] } {filters}");
-            
+
             //Act
             var query = queryBuilder.BuildFindVacanciesQuery(model);
-            
+
             //Assert
             query.Should().Be(@"{""sort"": [  ] } ");
         }
@@ -220,15 +220,15 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
             mockQueries
                 .Setup(queries => queries.FindVacanciesQuery)
                 .Returns(@"{filters}");
-            
+
             //Act
-            
+
             var query = queryBuilder.BuildFindVacanciesQuery(model);
-            
+
             //Assert
             query.Should().Be(@$"{{ ""range"": {{ ""postedDate"": {{ ""gte"": ""now-{model.PostedInLastNumberOfDays}d/d"", ""lt"": ""now/d"" }} }} }}");
         }
-      
+
         [Test, MoqAutoData]
         public void Then_If_There_Is_A_PostedInLastNumberOfDays_And_Location_Then_Added_To_Query(
             FindVacanciesModel model,
@@ -240,11 +240,11 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
             mockQueries
                 .Setup(queries => queries.FindVacanciesQuery)
                 .Returns(@"{filters}");
-            
+
             //Act
-            
+
             var query = queryBuilder.BuildFindVacanciesQuery(model);
-            
+
             //Assert
             query.Should().Be(@$"{{ ""geo_distance"": {{ ""distance"": ""{model.DistanceInMiles}miles"", ""location"": {{ ""lat"": {model.Lat}, ""lon"": {model.Lon} }} }} }}, {{ ""range"": {{ ""postedDate"": {{ ""gte"": ""now-{model.PostedInLastNumberOfDays}d/d"", ""lt"": ""now/d"" }} }} }}");
         }
@@ -285,10 +285,10 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
             mockQueries
                 .Setup(queries => queries.FindVacanciesQuery)
                 .Returns(@"{filters}");
-            
+
             //Act
             var query = queryBuilder.BuildFindVacanciesQuery(model);
-            
+
             //Assert
             query.Should().Be("");
         }

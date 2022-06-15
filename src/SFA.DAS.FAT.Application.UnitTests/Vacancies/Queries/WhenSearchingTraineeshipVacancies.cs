@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoFixture.NUnit3;
+﻿using AutoFixture.NUnit3;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -9,6 +7,8 @@ using SFA.DAS.FAT.Domain.Entities;
 using SFA.DAS.FAT.Domain.Interfaces;
 using SFA.DAS.FAT.Domain.Models;
 using SFA.DAS.Testing.AutoFixture;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FAT.Application.UnitTests.Vacancies.Queries
 {
@@ -22,7 +22,7 @@ namespace SFA.DAS.FAT.Application.UnitTests.Vacancies.Queries
             SearchTraineeshipVacanciesQueryHandler handler)
         {
             mockVacancyIndexRepository
-                .Setup(repository => repository.Find(It.Is<FindVacanciesModel>(c=> 
+                .Setup(repository => repository.Find(It.Is<FindVacanciesModel>(c =>
                         c.PageNumber.Equals(query.PageNumber) &&
                         c.PageSize.Equals(query.PageSize) &&
                         c.Ukprn.Equals(query.Ukprn) &&
@@ -37,7 +37,7 @@ namespace SFA.DAS.FAT.Application.UnitTests.Vacancies.Queries
                         c.VacancySort.Equals(query.VacancySort)
                         )))
                 .ReturnsAsync(responseFromRepository);
-            
+
             var result = await handler.Handle(query, CancellationToken.None);
 
             result.TraineeshipVacancies

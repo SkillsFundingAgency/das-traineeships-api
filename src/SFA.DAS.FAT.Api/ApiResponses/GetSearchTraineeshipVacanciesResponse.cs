@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using SFA.DAS.FAT.Application.Vacancies.Queries.SearchTraineeshipVacancies;
+using System.Collections.Generic;
 using System.Linq;
-using SFA.DAS.FAT.Application.Vacancies.Queries.SearchTraineeshipVacancies;
 
 namespace SFA.DAS.FAT.Api.ApiResponses
 {

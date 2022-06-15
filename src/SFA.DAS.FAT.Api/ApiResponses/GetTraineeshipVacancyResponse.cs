@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using SFA.DAS.FAT.Domain.Entities;
+﻿using SFA.DAS.FAT.Domain.Entities;
+using System;
 
 namespace SFA.DAS.FAT.Api.ApiResponses
 {

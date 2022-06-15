@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AutoFixture;
-using AutoFixture.NUnit3;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using SFA.DAS.FAT.Data.ElasticSearch;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
 {
@@ -39,7 +37,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.ElasticSearch
         public void ThenWillReturnEmptyListIfNoHitsExist()
         {
             //Arrange
-            var response = new ElasticResponse<string> {hits = new Hits<string>()};
+            var response = new ElasticResponse<string> { hits = new Hits<string>() };
 
             //Act
             var responseItems = response.Items;

@@ -12,14 +12,14 @@ namespace SFA.DAS.FAT.Api.UnitTests.ApiResponses
         public void Then_Maps_Fields(TraineeshipSearchItem source)
         {
             source.ExpectedDuration = null;
-            
+
             var response = (GetTraineeshipVacancyResponse)source;
 
-            response.Should().BeEquivalentTo(source, options=>options
-                .Excluding(c=>c.Duration)
-                .Excluding(c=>c.DurationUnit)
-                .Excluding(c=>c.EmployerDescription)
-                .Excluding(c=>c.ExpectedDuration)
+            response.Should().BeEquivalentTo(source, options => options
+                .Excluding(c => c.Duration)
+                .Excluding(c => c.DurationUnit)
+                .Excluding(c => c.EmployerDescription)
+                .Excluding(c => c.ExpectedDuration)
             );
             response.ExpectedDuration.Should().Be($"{source.Duration} {(source.Duration == 1 ? source.DurationUnit : $"{source.DurationUnit}s")}");
         }
@@ -34,7 +34,7 @@ namespace SFA.DAS.FAT.Api.UnitTests.ApiResponses
             source.ExpectedDuration = null;
             source.Duration = duration;
             source.DurationUnit = unit;
-            
+
             var response = (GetTraineeshipVacancyResponse)source;
 
             response.ExpectedDuration.Should().Be(expectedText);
@@ -45,19 +45,19 @@ namespace SFA.DAS.FAT.Api.UnitTests.ApiResponses
         {
             var response = (GetTraineeshipVacancyResponse)source;
 
-            response.Should().BeEquivalentTo(source, options=>options
-                .Excluding(c=>c.Duration)
-                .Excluding(c=>c.DurationUnit)
-                .Excluding(c=>c.EmployerDescription)
+            response.Should().BeEquivalentTo(source, options => options
+                .Excluding(c => c.Duration)
+                .Excluding(c => c.DurationUnit)
+                .Excluding(c => c.EmployerDescription)
             );
         }
-        
-        
+
+
         [Test, AutoData]
         public void Then_If_No_Address_Then_Null_Returned(TraineeshipVacancyItem source)
         {
             source.Address = null;
-            
+
             var actual = (GetTraineeshipVacancyResponse)source;
 
             actual.Address.Should().BeNull();

@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.FAT.Api.ApiResponses;
 using SFA.DAS.FAT.Api.ApRequests;
 using SFA.DAS.FAT.Application.Vacancies.Queries.GetTraineeshipVacancy;
 using SFA.DAS.FAT.Application.Vacancies.Queries.SearchTraineeshipVacancies;
 using SFA.DAS.FAT.Domain.Models;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FAT.Api.Controllers
 {
@@ -20,7 +20,7 @@ namespace SFA.DAS.FAT.Api.Controllers
         {
             _mediator = mediator;
         }
-        
+
         [HttpGet]
         [Route("{vacancyReference}")]
         public async Task<IActionResult> Get(string vacancyReference)
@@ -35,18 +35,18 @@ namespace SFA.DAS.FAT.Api.Controllers
                 return NotFound();
             }
 
-            var apiResponse = (GetTraineeshipVacancyDetailResponse) result.TraineeshipVacancy;
-            
+            var apiResponse = (GetTraineeshipVacancyDetailResponse)result.TraineeshipVacancy;
+
             return Ok(apiResponse);
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> Search([FromQuery]SearchVacancyRequest request)
+        public async Task<IActionResult> Search([FromQuery] SearchVacancyRequest request)
         {
             var result = await _mediator.Send(new SearchTraineeshipVacanciesQuery
             {
-                PageNumber = request.PageNumber, 
+                PageNumber = request.PageNumber,
                 PageSize = request.PageSize,
                 Ukprn = request.Ukprn,
                 AccountPublicHashedId = request.AccountPublicHashedId,
@@ -60,8 +60,8 @@ namespace SFA.DAS.FAT.Api.Controllers
                 VacancySort = request.Sort ?? VacancySort.AgeDesc
             });
 
-            var apiResponse = (GetSearchTraineeshipVacanciesResponse) result;
-            
+            var apiResponse = (GetSearchTraineeshipVacanciesResponse)result;
+
             return Ok(apiResponse);
         }
     }

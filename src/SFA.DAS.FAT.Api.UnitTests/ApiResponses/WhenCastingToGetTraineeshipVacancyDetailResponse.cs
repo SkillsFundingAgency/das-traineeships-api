@@ -13,13 +13,13 @@ namespace SFA.DAS.FAT.Api.UnitTests.ApiResponses
         {
             var actual = (GetTraineeshipVacancyDetailResponse)source;
 
-            actual.Should().BeEquivalentTo(source, options=> options
-                .Excluding(c=>c.Duration)
-                .Excluding(c=>c.DurationUnit)
+            actual.Should().BeEquivalentTo(source, options => options
+                .Excluding(c => c.Duration)
+                .Excluding(c => c.DurationUnit)
             );
         }
-        
-        
+
+
         [Test]
         [InlineAutoData(1, "year", "1 year")]
         [InlineAutoData(3, "month", "3 months")]

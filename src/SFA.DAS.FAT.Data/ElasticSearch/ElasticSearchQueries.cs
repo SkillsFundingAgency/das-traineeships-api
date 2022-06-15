@@ -1,5 +1,5 @@
-﻿using System.IO;
-using SFA.DAS.FAT.Domain.Interfaces;
+﻿using SFA.DAS.FAT.Domain.Interfaces;
+using System.IO;
 
 namespace SFA.DAS.FAT.Data.ElasticSearch
 {

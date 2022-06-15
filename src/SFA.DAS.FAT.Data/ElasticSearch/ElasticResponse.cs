@@ -9,7 +9,7 @@ namespace SFA.DAS.FAT.Data.ElasticSearch
         public bool timed_out { get; set; }
         public Shards _shards { get; set; }
         public Hits<T> hits { get; set; }
-        
+
         public ICollection<Hit<T>> Items => hits?.hits?.Select(h => h).ToList() ?? new List<Hit<T>>();
     }
 

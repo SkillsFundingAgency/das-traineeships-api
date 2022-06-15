@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Elasticsearch.Net;
+﻿using Elasticsearch.Net;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SFA.DAS.FAT.Data.ElasticSearch;
@@ -10,6 +6,10 @@ using SFA.DAS.FAT.Domain.Configuration;
 using SFA.DAS.FAT.Domain.Entities;
 using SFA.DAS.FAT.Domain.Interfaces;
 using SFA.DAS.FAT.Domain.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FAT.Data.Repository
 {

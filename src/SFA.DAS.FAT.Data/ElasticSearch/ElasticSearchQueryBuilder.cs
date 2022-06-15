@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SFA.DAS.FAT.Data.Extensions;
+﻿using SFA.DAS.FAT.Data.Extensions;
 using SFA.DAS.FAT.Domain.Interfaces;
 using SFA.DAS.FAT.Domain.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SFA.DAS.FAT.Data.ElasticSearch
 {
@@ -14,7 +14,7 @@ namespace SFA.DAS.FAT.Data.ElasticSearch
         {
             _elasticSearchQueries = elasticSearchQueries;
         }
-        
+
         public string BuildFindVacanciesQuery(FindVacanciesModel findVacanciesModel)
         {
             var startingDocumentIndex = findVacanciesModel.PageNumber < 2 ? 0 : (findVacanciesModel.PageNumber - 1) * findVacanciesModel.PageSize;
@@ -29,7 +29,7 @@ namespace SFA.DAS.FAT.Data.ElasticSearch
                 {nameof(sort), sort},
                 {nameof(filters), filters}
             };
-            
+
             var query = _elasticSearchQueries.FindVacanciesQuery.ReplaceParameters(parameters);
 
             return query;
@@ -48,7 +48,7 @@ namespace SFA.DAS.FAT.Data.ElasticSearch
             };
             return _elasticSearchQueries.GetVacancyQuery.ReplaceParameters(parameters);
         }
-        
+
         private string BuildMustConditions(FindVacanciesModel findVacanciesModel)
         {
             var filters = string.Empty;
@@ -66,12 +66,12 @@ namespace SFA.DAS.FAT.Data.ElasticSearch
             }
             if (findVacanciesModel.NationWideOnly.HasValue)
             {
-                filters += @$"{AddFilterSeparator(filters)}{{ ""term"": {{ ""vacancyLocationType"": ""{(findVacanciesModel.NationWideOnly.Value ? "National":"NonNational")}"" }}}}";
+                filters += @$"{AddFilterSeparator(filters)}{{ ""term"": {{ ""vacancyLocationType"": ""{(findVacanciesModel.NationWideOnly.Value ? "National" : "NonNational")}"" }}}}";
             }
             return filters;
         }
 
-        
+
 
         private string BuildSort(FindVacanciesModel model)
         {
@@ -90,7 +90,7 @@ namespace SFA.DAS.FAT.Data.ElasticSearch
                 case VacancySort.DistanceDesc:
                     return !model.Lat.HasValue || !model.Lon.HasValue ? "" : @$" {{ ""_geo_distance"" : {{ ""location"" : {{ ""lat"" : {model.Lat}, ""lon"" : {model.Lon} }}, ""order"" : ""desc"", ""unit"" :""mi"" }} }}";
             }
-            
+
             return "";
         }
 

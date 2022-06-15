@@ -1,10 +1,6 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoFixture.NUnit3;
+﻿using AutoFixture.NUnit3;
 using Elasticsearch.Net;
 using FluentAssertions;
-using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -15,6 +11,9 @@ using SFA.DAS.FAT.Domain.Entities;
 using SFA.DAS.FAT.Domain.Interfaces;
 using SFA.DAS.FAT.Domain.Models;
 using SFA.DAS.Testing.AutoFixture;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FAT.Data.UnitTests.Repository
 {
@@ -34,7 +33,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
             var expectedVacancy = JsonConvert
                 .DeserializeObject<ElasticResponse<TraineeshipSearchItem>>(FakeElasticResponses.MoreThanOneHitResponse)
                 .Items.First();
-            
+
             mockElasticClient.Setup(c =>
                     c.SearchAsync<StringResponse>(
                         $"{environment.Prefix}{IndexName}",
@@ -50,7 +49,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
                         It.IsAny<CountRequestParameters>(),
                         It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new StringResponse(@"{""count"":10}"));
-            
+
             //Act
             var results = await repository.Find(model);
 
@@ -62,7 +61,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
             vacancy.Should().BeEquivalentTo(expectedVacancy._source);
             vacancy.Distance.Should().BeNull();
         }
-        
+
         [Test, MoqAutoData]
         public async Task Then_Will_Return_TraineeshipVacancies_Found_And_Distance_If_Sort_And_GeoDistance(
             FindVacanciesModel model,
@@ -76,7 +75,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
             var expectedVacancy = JsonConvert
                 .DeserializeObject<ElasticResponse<TraineeshipSearchItem>>(FakeElasticResponses.MoreThanOneHitResponseWithSort)
                 .Items.First();
-            
+
             mockElasticClient.Setup(c =>
                     c.SearchAsync<StringResponse>(
                         $"{environment.Prefix}{IndexName}",
@@ -92,7 +91,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
                         It.IsAny<CountRequestParameters>(),
                         It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new StringResponse(@"{""count"":10}"));
-            
+
             //Act
             var results = await repository.Find(model);
 
@@ -101,11 +100,11 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
             results.TotalFound.Should().Be(2);
             results.TraineeshipVacancies.Count().Should().Be(2);
             var vacancy = results.TraineeshipVacancies.First();
-            vacancy.Should().BeEquivalentTo(expectedVacancy._source, options=>options.Excluding(c=>c.Distance));
+            vacancy.Should().BeEquivalentTo(expectedVacancy._source, options => options.Excluding(c => c.Distance));
             vacancy.Distance.Should().Be(expectedVacancy.sort.FirstOrDefault());
         }
-        
-        
+
+
         [Test]
         [MoqInlineAutoData(null, null, null)]
         [MoqInlineAutoData(1.0, null, null)]
@@ -134,7 +133,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
             var expectedVacancy = JsonConvert
                 .DeserializeObject<ElasticResponse<TraineeshipSearchItem>>(FakeElasticResponses.MoreThanOneHitResponseWithSort)
                 .Items.First();
-            
+
             mockElasticClient.Setup(c =>
                     c.SearchAsync<StringResponse>(
                         $"{environment.Prefix}{IndexName}",
@@ -150,7 +149,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
                         It.IsAny<CountRequestParameters>(),
                         It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new StringResponse(@"{""count"":10}"));
-            
+
             //Act
             var results = await repository.Find(model);
 
@@ -159,10 +158,10 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
             results.TotalFound.Should().Be(2);
             results.TraineeshipVacancies.Count().Should().Be(2);
             var vacancy = results.TraineeshipVacancies.First();
-            vacancy.Should().BeEquivalentTo(expectedVacancy._source, options=>options.Excluding(c=>c.Distance));
+            vacancy.Should().BeEquivalentTo(expectedVacancy._source, options => options.Excluding(c => c.Distance));
             vacancy.Distance.Should().BeNull();
         }
-        
+
         [Test, MoqAutoData]
         public async Task Then_Will_Return_Empty_Result_If_TraineeshipVacanciesIndex_Request_Returns_Invalid_Response(
             FindVacanciesModel model,
@@ -188,7 +187,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
             Assert.IsEmpty(result.TraineeshipVacancies);
             Assert.AreEqual(0, result.TotalFound);
         }
-        
+
         [Test, MoqAutoData]
         public async Task Then_Will_Return_Empty_Result_If_TraineeshipVacanciesIndex_Request_Returns_No_results(
             FindVacanciesModel model,
@@ -198,7 +197,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
             TraineeshipVacancySearchRepository repository)
         {
             //Arrange
-            var response =  @"{""took"":0,""timed_out"":false,""_shards"":{""total"":1,""successful"":0,""skipped"":0,""failed"":1}}";
+            var response = @"{""took"":0,""timed_out"":false,""_shards"":{""total"":1,""successful"":0,""skipped"":0,""failed"":1}}";
 
             mockElasticClient.Setup(c =>
                     c.SearchAsync<StringResponse>(
@@ -207,7 +206,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
                         It.IsAny<SearchRequestParameters>(),
                         It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new StringResponse(response));
-            
+
             mockElasticClient.Setup(c =>
                     c.CountAsync<StringResponse>(
                         $"{environment.Prefix}{IndexName}",
@@ -224,7 +223,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
             Assert.IsEmpty(result.TraineeshipVacancies);
             Assert.AreEqual(0, result.TotalFound);
         }
-        
+
         [Test, MoqAutoData]
         public async Task Then_Will_Return_Empty_Result_If_TraineeshipVacanciesIndex_Request_Returns_Failed_Response(
             FindVacanciesModel model,
@@ -234,7 +233,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
             TraineeshipVacancySearchRepository repository)
         {
             //Arrange
-            var response =  @"{""took"":0,""timed_out"":false,""_shards"":{""total"":1,""successful"":0,""skipped"":0,""failed"":1},""hits"":{""total"":
+            var response = @"{""took"":0,""timed_out"":false,""_shards"":{""total"":1,""successful"":0,""skipped"":0,""failed"":1},""hits"":{""total"":
             {""value"":0,""relation"":""eq""},""max_score"":null,""hits"":[]}}";
 
             mockElasticClient.Setup(c =>
@@ -244,7 +243,7 @@ namespace SFA.DAS.FAT.Data.UnitTests.Repository
                         It.IsAny<SearchRequestParameters>(),
                         It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new StringResponse(response));
-            
+
             mockElasticClient.Setup(c =>
                     c.CountAsync<StringResponse>(
                         $"{environment.Prefix}{IndexName}",

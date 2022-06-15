@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using SFA.DAS.FAT.Data.Extensions;
+using System.Collections.Generic;
 
 namespace SFA.DAS.FAT.Data.UnitTests.ExtensionTests
 {

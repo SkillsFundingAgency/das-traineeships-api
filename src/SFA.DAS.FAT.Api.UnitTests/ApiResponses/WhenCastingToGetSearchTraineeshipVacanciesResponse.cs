@@ -13,12 +13,12 @@ namespace SFA.DAS.FAT.Api.UnitTests.ApiResponses
         {
             var response = (GetSearchTraineeshipVacanciesResponse)source;
 
-            response.Should().BeEquivalentTo(source, options=>options.Excluding(c=>c.TraineeshipVacancies));
+            response.Should().BeEquivalentTo(source, options => options.Excluding(c => c.TraineeshipVacancies));
             response.TraineeshipVacancies.Should().BeEquivalentTo(source.TraineeshipVacancies, options => options
                 .Excluding(c => c.EmployerDescription)
                 .Excluding(c => c.Duration)
                 .Excluding(c => c.DurationUnit)
-                .Excluding(c=>c.ExpectedDuration)
+                .Excluding(c => c.ExpectedDuration)
             );
         }
     }

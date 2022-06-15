@@ -1,7 +1,5 @@
-using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using System.Linq;
 using SFA.DAS.FAT.Domain.Entities;
+using System.Collections.Generic;
 
 namespace SFA.DAS.FAT.Api.ApiResponses
 {

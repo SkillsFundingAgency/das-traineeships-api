@@ -1,7 +1,4 @@
-﻿using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoFixture.NUnit3;
+﻿using AutoFixture.NUnit3;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +8,9 @@ using SFA.DAS.FAT.Api.ApiResponses;
 using SFA.DAS.FAT.Api.Controllers;
 using SFA.DAS.FAT.Application.Vacancies.Queries.GetTraineeshipVacancy;
 using SFA.DAS.Testing.AutoFixture;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FAT.Api.UnitTests.Controllers.Vacancies
 {
@@ -26,19 +26,19 @@ namespace SFA.DAS.FAT.Api.UnitTests.Controllers.Vacancies
             mockMediator
                 .Setup(mediator => mediator.Send(
                     It.Is<GetTraineeshipVacancyQuery>(query =>
-                        query.VacancyReference == vacancyReference), 
+                        query.VacancyReference == vacancyReference),
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(mediatorResult);
 
             var result = await controller.Get(vacancyReference) as OkObjectResult;
 
             result.Should().NotBeNull();
-            result.StatusCode.Should().Be((int) HttpStatusCode.OK);
+            result.StatusCode.Should().Be((int)HttpStatusCode.OK);
             var apiModel = result.Value as GetTraineeshipVacancyDetailResponse;
             apiModel.Should().NotBeNull();
             apiModel.Should().BeEquivalentTo((GetTraineeshipVacancyDetailResponse)mediatorResult.TraineeshipVacancy);
         }
-        
+
         [Test, MoqAutoData]
         public async Task And_Null_From_Mediator_Then_Returns_NotFound(
             string vacancyReference,
@@ -48,14 +48,14 @@ namespace SFA.DAS.FAT.Api.UnitTests.Controllers.Vacancies
             mockMediator
                 .Setup(mediator => mediator.Send(
                     It.Is<GetTraineeshipVacancyQuery>(query =>
-                        query.VacancyReference == vacancyReference), 
+                        query.VacancyReference == vacancyReference),
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new GetTraineeshipVacancyResult());
 
             var result = await controller.Get(vacancyReference) as NotFoundResult;
 
             result.Should().NotBeNull();
-            result.StatusCode.Should().Be((int) HttpStatusCode.NotFound);
+            result.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
     }
 }

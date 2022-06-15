@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using SFA.DAS.FAT.Domain.Entities;
+﻿using SFA.DAS.FAT.Domain.Entities;
 using SFA.DAS.FAT.Domain.Models;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.FAT.Domain.Interfaces
 {

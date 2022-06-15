@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using SFA.DAS.FAT.Domain.Entities;
+using System.Collections.Generic;
 
 namespace SFA.DAS.FAT.Application.Vacancies.Queries.SearchTraineeshipVacancies
 {
