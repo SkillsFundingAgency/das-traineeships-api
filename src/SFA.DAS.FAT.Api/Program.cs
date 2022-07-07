@@ -33,7 +33,7 @@ builder.Services.AddSingleton(cfg => cfg.GetService<IOptions<AzureActiveDirector
 #if DEBUG
     builder.Services.AddSingleton(new ElasticEnvironment("pp"));
 #else
-    builder.services.AddSingleton(new ElasticEnvironment(_configuration["ResourceEnvironmentName"]));
+    builder.Services.AddSingleton(new ElasticEnvironment(_configuration["ResourceEnvironmentName"]));
 #endif
 
 var apiConfig = _configuration
