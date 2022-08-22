@@ -2,7 +2,7 @@
 
 <img src="https://avatars.githubusercontent.com/u/9841374?s=200&v=4" align="right" alt="UK Government logo">
 
-[![Build Status](https://sfa-gov-uk.visualstudio.com/Digital%20Apprenticeship%20Service/_apis/build/status/das-findtraineeship-api?repoName=SkillsFundingAgency%2Fdas-findtraineeship-api&branchName=FAI-298-Get_Traineeships_for_the_Display_API](https://sfa-gov-uk.visualstudio.com/Digital%20Apprenticeship%20Service/_apis/build/status/das-findtraineeship-api?repoName=SkillsFundingAgency%2Fdas-findtraineeship-api&branchName=FAI-298-Get_Traineeships_for_the_Display_API)
+[![Build Status](https://sfa-gov-uk.visualstudio.com/Digital%20Apprenticeship%20Service/_apis/build/status/das-findtraineeship-api?repoName=SkillsFundingAgency%2Fdas-findtraineeship-api&branchName=FAI-298-Get_Traineeships_for_the_Display_API)](https://sfa-gov-uk.visualstudio.com/Digital%20Apprenticeship%20Service/_apis/build/status/das-findtraineeship-api?repoName=SkillsFundingAgency%2Fdas-findtraineeship-api&branchName=FAI-298-Get_Traineeships_for_the_Display_API)
 
 [![Quality Gate Status]
 
@@ -27,9 +27,6 @@ Data:
     "ElasticSearchPassword": " ",
     "ElasticSearchServerUrl": " "
   },
-  "AzureAd": {
-    "tenant": "citizenazuresfabisgov.onmicrosoft.com",
-    "identifier": "https://citizenazuresfabisgov.onmicrosoft.com/das-at-ftrnshpapi-as-ar"
-  } 
 }
 ```
+ 
