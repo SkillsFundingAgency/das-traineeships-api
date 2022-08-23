@@ -5,7 +5,7 @@
 [![Build Status](https://sfa-gov-uk.visualstudio.com/Digital%20Apprenticeship%20Service/_apis/build/status/das-findtraineeship-api?repoName=SkillsFundingAgency%2Fdas-findtraineeship-api&branchName=FAI-298-Get_Traineeships_for_the_Display_API)](https://sfa-gov-uk.visualstudio.com/Digital%20Apprenticeship%20Service/_apis/build/status/das-findtraineeship-api?repoName=SkillsFundingAgency%2Fdas-findtraineeship-api&branchName=FAI-298-Get_Traineeships_for_the_Display_API)
 
 
-The das-findapprenticeship-api is the inner api for retrieving and filtering traineeship vacancies relying on the ElasticIndex created from das-findapprenticeship.
+The das-findtraineeship-api is the inner api for retrieving and filtering traineeship vacancies relying on the ElasticIndex created from das-findapprenticeship.
 
 ## How It Works
 
